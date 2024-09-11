@@ -1,0 +1,80 @@
+/* Favorite Page styling */
+.favorite {
+  padding: 20px;
+}
+
+.movies-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center; /* Center the movie cards */
+}
+
+/* Movie Card styling */
+.movie-card {
+  position: relative;
+  width: 200px;
+  height: 300px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Image styling within movie card */
+.movie-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensure image covers the card */
+  object-position: center; /* Center the image */
+}
+
+/* Movie info section within card */
+.movie-info {
+  padding: 10px;
+  text-align: center;
+}
+
+/* Button styling within movie card */
+.buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+/* Delete button styling */
+.delete-button {
+  background-color: #e50914;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  font-size: 0.8rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.delete-button:hover {
+  background-color: #f40612;
+  transform: scale(1.05);
+}
+
+.delete-button:active {
+  transform: scale(0.95);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .movie-card {
+      width: 150px; /* Adjust width for smaller screens */
+      height: 225px; /* Adjust height for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .movie-card {
+      width: 120px; /* Further adjust width for very small screens */
+      height: 180px; /* Further adjust height for very small screens */
+  }
+}

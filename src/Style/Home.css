@@ -1,0 +1,140 @@
+/* Base styles */
+.search-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto; /* Centering the search bar */
+    width: 100%;
+    max-width: 700px; /* Max width to keep it in proportion */
+    height: 60px; /* Increased height for better visibility */
+    border-radius: 50px; /* Fully rounded corners */
+    background-color: rgba(0, 0, 0, 0.75); /* Semi-transparent black background */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Subtle shadow for depth */
+    overflow: hidden; /* Ensures no content overflows the rounded edges */
+    border: 2px solid red;
+}
+
+.search-bar input {
+    flex: 1; /* Fills the remaining space */
+    padding: 0 20px; /* Padding for spacing */
+    font-size: 1.2rem; /* Larger font size for readability */
+    border: none; /* No border */
+    outline: none; /* Remove default outline */
+    color: white; /* White text */
+    background: transparent; /* No background */
+    height: 100%; /* Ensures input takes full height */
+}
+
+.search-bar input::placeholder {
+    color: #b3b3b3; /* Light grey placeholder text */
+}
+
+.search-bar input:focus {
+    border-color: #e50914; /* Netflix red for focus state */
+    box-shadow: 0 0 10px rgba(229, 9, 20, 0.5); /* Subtle shadow for focus state */
+}
+
+.search-bar .search-button {
+    height: 100%; /* Full height to match input */
+    padding: 0 30px; /* More padding for a substantial feel */
+    font-size: 1.2rem; /* Larger font size for the button */
+    background-color: #e50914; /* Netflix red */
+    color: white; /* White text */
+    border: none; /* No border */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+}
+
+.search-bar .search-button:hover {
+    background-color: #f40612; /* Slightly darker red on hover */
+    transform: scale(1.05); /* Slightly enlarge the button on hover */
+}
+
+.search-bar .search-button:active {
+    transform: scale(0.95); /* Shrink slightly on click */
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .search-bar {
+        width: 90%; /* Adjust width for smaller screens */
+        height: 50px; /* Adjust height for smaller screens */
+    }
+
+    .search-bar input {
+        font-size: 1rem; /* Adjust font size for smaller screens */
+    }
+
+    .search-bar .search-button {
+        padding: 0 20px; /* Adjust padding for smaller screens */
+        font-size: 1rem; /* Adjust font size for smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .search-bar {
+        width: 100%; /* Full width on very small screens */
+        height: 45px; /* Adjust height for very small screens */
+    }
+
+    .search-bar input {
+        font-size: 0.9rem; /* Further adjust font size */
+    }
+
+    .search-bar .search-button {
+        padding: 0 15px; /* Further adjust padding */
+        font-size: 0.9rem; /* Further adjust font size */
+    }
+}
+/* Slider Container Styling */
+.movies-section {
+    position: relative; /* Ensure that arrows are positioned relative to this container */
+  }
+  
+  /* Arrow Styling */
+  .slider-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--button-bg);
+    color: var(--button-text-color);
+    border: none;
+    padding: 10px;
+    font-size: 1.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    z-index: 1; /* Ensure arrows are above other content */
+  }
+  
+  /* Positioning for Left Arrow */
+  .slider-arrow.left {
+    left: 10px; /* Adjust as needed */
+  }
+  
+  /* Positioning for Right Arrow */
+  .slider-arrow.right {
+    right: 10px; /* Adjust as needed */
+  }
+  
+  /* Arrow Hover Effect */
+  .slider-arrow:hover {
+    background-color: var(--button-hover-bg);
+    transform: translateY(-50%) scale(1.1);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .slider-arrow {
+      padding: 8px;
+      font-size: 1.2rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .slider-arrow {
+      padding: 6px;
+      font-size: 1rem;
+    }
+  }
+  
