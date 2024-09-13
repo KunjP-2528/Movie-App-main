@@ -49,15 +49,19 @@
   // export default Favorite;
 import React, { useRef } from 'react';
 import MovieCard from '../component/MovieCard';
-import { Movie } from '../App';  // Import Movie type from App
+import { useQuery } from '@apollo/client';
+import { GET_FAVORITES, } from '../graphql/quires';
 
-interface FavoriteProps {
-  favorites: Movie[];
-  dispatch: React.Dispatch<any>;  // Type for dispatch
-}
 
-const Favorite: React.FC<FavoriteProps> = ({ favorites, dispatch }) => {
+
+const Favorite: React.FC = ( ) => {
+
   const favoritesContainerRef = useRef<HTMLDivElement>(null);
+  const { data, loading, error } = useQuery(GET_FAVORITES);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
 
   const scrollLeft = () => {
     if (favoritesContainerRef.current) {
@@ -75,15 +79,15 @@ const Favorite: React.FC<FavoriteProps> = ({ favorites, dispatch }) => {
     <div className="favorite">
       <h1>Your Favorites</h1>
       <div className="movies-container" ref={favoritesContainerRef}>
-        {favorites.length > 0 ? (
-          favorites.map((movie: Movie) => (
-            <MovieCard key={movie.id} movie={movie} mode="favorites" dispatch={dispatch} />
+        {data.length > 0 ? (
+          data.map((movie: any) => (
+            <MovieCard key={movie.id} movie={movie} mode="favorites"  />
           ))
         ) : (
           <p>No favorite movies added yet!</p>
         )}
       </div>
-      {favorites.length > 0 && (
+      {data.length > 0 && (
         <>
           <button className="slider-arrow left" onClick={scrollLeft}>←</button>
           <button className="slider-arrow right" onClick={scrollRight}>→</button>

@@ -96,11 +96,9 @@ import { fetchPopularMovies, fetchUpcomingMovies, fetchTopRatedMovies, Movie } f
 import MovieCard from '../component/MovieCard';
 import '../Style/Home.css';
 
-interface HomeProps {
-  dispatch: React.Dispatch<any>;
-}
 
-const Home: React.FC<HomeProps> = ({ dispatch }) => {
+
+const Home: React.FC = () => {
   const [popularMovies, setPopularMovies] = useState<Movie[]>([]);
   const [upcomingMovies, setUpcomingMovies] = useState<Movie[]>([]);
   const [topRatedMovies, setTopRatedMovies] = useState<Movie[]>([]);
@@ -149,7 +147,7 @@ const Home: React.FC<HomeProps> = ({ dispatch }) => {
         </div>
         <div className="movies-container" ref={popularContainerRef}>
           {popularMovies.map(movie => (
-            <MovieCard key={movie.id} movie={movie} dispatch={dispatch} />
+            <MovieCard key={movie.id} movie={movie}  />
           ))}
         </div>
         <button className="slider-arrow left" onClick={() => scrollLeft(popularContainerRef)}>←</button>
@@ -163,7 +161,7 @@ const Home: React.FC<HomeProps> = ({ dispatch }) => {
         </div>
         <div className="movies-container" ref={upcomingContainerRef}>
           {upcomingMovies.map(movie => (
-            <MovieCard key={movie.id} movie={movie} dispatch={dispatch} />
+            <MovieCard key={movie.id} movie={movie}  />
           ))}
         </div>
         <button className="slider-arrow left" onClick={() => scrollLeft(upcomingContainerRef)}>←</button>
@@ -177,7 +175,7 @@ const Home: React.FC<HomeProps> = ({ dispatch }) => {
         </div>
         <div className="movies-container" ref={topRatedMovieRef}>
           {topRatedMovies.map(movie => (
-            <MovieCard key={movie.id} movie={movie} dispatch={dispatch} />
+            <MovieCard key={movie.id} movie={movie}  />
           ))}
         </div>
         <button className="slider-arrow left" onClick={() => scrollLeft(topRatedMovieRef)}>←</button>

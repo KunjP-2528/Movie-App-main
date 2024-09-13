@@ -49,15 +49,18 @@
 // export default WatchList;
 import React, { useRef } from 'react';
 import MovieCard from '../component/MovieCard';
-import { Movie } from '../App';  // Import Movie type from App
+import { useQuery } from '@apollo/client';
+import {  GET_WATCHLIST } from '../graphql/quires';
 
-interface WatchlistProps {
-  watchlist: Movie[];
-  dispatch: React.Dispatch<any>;  // Type for dispatch
-}
+// Import Movie type from App
 
-const Watchlist: React.FC<WatchlistProps> = ({ watchlist, dispatch }) => {
+
+const Watchlist: React.FC = () => {
   const watchlistContainerRef = useRef<HTMLDivElement>(null);
+  const { data, loading, error } = useQuery(GET_WATCHLIST);
+  
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>
 
   const scrollLeft = () => {
     if (watchlistContainerRef.current) {
@@ -75,15 +78,15 @@ const Watchlist: React.FC<WatchlistProps> = ({ watchlist, dispatch }) => {
     <div className="watchlist">
       <h1>Your Watchlist</h1>
       <div className="movies-container" ref={watchlistContainerRef}>
-        {watchlist.length > 0 ? (
-          watchlist.map((movie: Movie) => (
-            <MovieCard key={movie.id} movie={movie} mode="watchlist" dispatch={dispatch} />
+        {data.length > 0 ? (
+          data.map((movie: any) => (
+            <MovieCard key={movie.id} movie={movie} mode="watchlist"  />
           ))
         ) : (
           <p>No movies in your watchlist yet!</p>
         )}
       </div>
-      {watchlist.length > 0 && (
+      {data.length > 0 && (
         <>
           <button className="slider-arrow left" onClick={scrollLeft}>←</button>
           <button className="slider-arrow right" onClick={scrollRight}>→</button>
