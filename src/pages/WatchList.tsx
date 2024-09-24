@@ -63,6 +63,9 @@ const Watchlist: React.FC = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>
 
+  const movies = data?.watchlist || [];
+  console.log(movies)
+
   const scrollLeft = () => {
     if (watchlistContainerRef.current) {
       watchlistContainerRef.current.scrollBy({ left: -300, behavior: 'smooth' });
@@ -79,8 +82,8 @@ const Watchlist: React.FC = () => {
     <div className="watchlist">
       <h1>Your Watchlist</h1>
       <div className="movies-container" ref={watchlistContainerRef}>
-        {data.length > 0 ? (
-          data.map((movie: any) => (
+        {movies.length > 0 ? (
+          movies.map((movie: any) => (
             <MovieCard key={movie.id} movie={movie} mode="watchlist"  />
           ))
         ) : (

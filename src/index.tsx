@@ -6,9 +6,9 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { SnackbarProvider } from 'notistack';
 
 const client = new ApolloClient({
-  uri: 'https://lenient-dove-39.hasura.app/v1/graphql', 
+  uri: 'https://normal-jaguar-26.hasura.app/v1/graphql', 
   headers: {
-    'x-hasura-admin-secret': 'BA6u1r5a5tEOR28bJyfgZW1XwMFFHj6lAtGh9xxVwZT90XQdtgP7HAG9hR7wXQIL',  
+    'x-hasura-admin-secret': 'gmNflxcFtWLQQwD1iqXwoYqruQ84zS9lxNyimYtxO8pcHNePpPtI4X1QDvIi4BNT',  
   },
   cache: new InMemoryCache(),
 });

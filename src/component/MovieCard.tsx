@@ -145,9 +145,11 @@
 // import React, { useState, useEffect } from 'react';
 import './Moviecard.css';
 import { useMutation } from '@apollo/client';
-import { ADD_TO_WATCHLIST, ADD_TO_FAVORITES } from '../graphql/mutation'; 
+import { ADD_TO_WATCHLIST, ADD_TO_FAVORITES,DELETE_FROM_FAVORITES,DELETE_FROM_WATCHLIST } from '../graphql/mutation'; 
+import {GET_FAVORITES, GET_WATCHLIST} from '../graphql/quires'
 import { useSnackbar } from 'notistack';
 import { useState, useEffect } from 'react';
+import { ApolloError } from '@apollo/client';
 
 interface MovieCardProps {
   movie: {
@@ -167,8 +169,26 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, mode }) => {
   const { enqueueSnackbar } = useSnackbar();
 
   // Apollo Client mutations
-  const [addToWatchlist] = useMutation(ADD_TO_WATCHLIST);
-  const [addToFavorites] = useMutation(ADD_TO_FAVORITES);
+  // const [addToWatchlist] = useMutation(ADD_TO_WATCHLIST);
+  // const [addToFavorites] = useMutation(ADD_TO_FAVORITES,);
+  // const [deleteFavorite] = useMutation(DELETE_FROM_FAVORITES);
+  // const [deleteWatchlist] = useMutation(DELETE_FROM_WATCHLIST);
+  const [addToWatchlist] = useMutation(ADD_TO_WATCHLIST, {
+    refetchQueries: [{ query: GET_WATCHLIST }],
+  });
+
+  const [addToFavorites] = useMutation(ADD_TO_FAVORITES, {
+    refetchQueries: [{ query: GET_FAVORITES }],
+  });
+
+  const [deleteFavorite] = useMutation(DELETE_FROM_FAVORITES, {
+    refetchQueries: [{ query: GET_FAVORITES }],
+  });
+
+  const [deleteWatchlist] = useMutation(DELETE_FROM_WATCHLIST, {
+    refetchQueries: [{ query: GET_WATCHLIST }],
+  });
+
 
   useEffect(() => {
     const fetchVideoId = async () => {
@@ -212,16 +232,18 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, mode }) => {
 
   const handleAddToFavorites = async (e: React.MouseEvent) => {
     e.stopPropagation();
+   
     try {
       const { data } = await addToFavorites({
         variables: {
           id: movie.id,
-          movie_app_id: movie.id, // Adjust according to your schema
+          movie_app_id: movie.id, 
           movie_poster_path: movie.poster_path,
           overview: movie.overview,
           title: movie.title,
           added_at: new Date().toISOString(),
         },
+      
       });
       console.log("Added to Favorite:", data);
       enqueueSnackbar('Movie added to Favorite!', { variant: 'success' });
@@ -237,7 +259,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, mode }) => {
       const { data } = await addToWatchlist({
         variables: {
           id: movie.id,
-          movie_app_id: movie.id, // Adjust according to your schema
+          movie_app_id: movie.id, 
           movie_poster_path: movie.poster_path,
           overview: movie.overview,
           title: movie.title,
@@ -250,12 +272,35 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, mode }) => {
       console.error("Error adding to watchlist:", error);
       enqueueSnackbar('Failed to add movie to Watchlist.', { variant: 'error' });
     }
+    
   };
 
   const handleDelete = async (e: React.MouseEvent) => {
+   
+
     e.stopPropagation();
-    // Implement your delete functionality here
-    enqueueSnackbar('Movie deleted successfully!', { variant: 'success' });
+
+    try {
+      if (mode === 'favorites') {
+        const { data } = await deleteFavorite({ variables: { id: movie.id } });
+        if (data && data.delete_favorite && data.delete_favorite.affected_rows > 0) {
+          enqueueSnackbar('Movie deleted from favorites!', { variant: 'success' });
+        } else {
+          enqueueSnackbar('Movie not found in favorites!', { variant: 'info' });
+        }
+      } else if (mode === 'watchlist') {
+        const { data } = await deleteWatchlist({ variables: { id: movie.id } });
+        if (data && data.delete_watchlist && data.delete_watchlist.affected_rows > 0) {
+          enqueueSnackbar('Movie deleted from watchlist!', { variant: 'success' });
+        } else {
+          enqueueSnackbar('Movie not found in watchlist!', { variant: 'info' });
+        }
+      }
+    } catch (error) {
+      const apolloError = error as ApolloError;
+      enqueueSnackbar('Error deleting movie: ' + apolloError.message, { variant: 'error' });
+    }
+   
   };
 
   return (

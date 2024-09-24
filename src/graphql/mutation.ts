@@ -8,7 +8,7 @@ export const ADD_TO_WATCHLIST = gql`
     $title: String!, 
     $added_at: timestamptz!
   ) {
-    insert_watchList(objects: {
+    insert_watchlist(objects: {
       id: $id, 
       movie_app_id: $movie_app_id, 
       movie_poster_path: $movie_poster_path, 
@@ -53,6 +53,21 @@ export const ADD_TO_FAVORITES = gql`
         title
         added_at
       }
+    }
+  }
+`;
+export const DELETE_FROM_WATCHLIST = gql`
+  mutation DeleteFromWatchlist($id: Int!) {
+    delete_watchlist(where: { id: { _eq: $id } }) {
+      affected_rows
+    }
+  }
+`;
+
+export const DELETE_FROM_FAVORITES = gql`
+  mutation DeleteFromFavorites($id: Int!) {
+    delete_favorite(where: { id: { _eq: $id } }) {
+      affected_rows
     }
   }
 `;

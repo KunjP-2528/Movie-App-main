@@ -58,10 +58,13 @@ const Favorite: React.FC = ( ) => {
 
   const favoritesContainerRef = useRef<HTMLDivElement>(null);
   const { data, loading, error } = useQuery(GET_FAVORITES);
-  console.log(data)
+  console.log(data);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
+
+  const movies = data?.favorite || [];
+  console.log(movies)
 
 
   const scrollLeft = () => {
@@ -80,8 +83,8 @@ const Favorite: React.FC = ( ) => {
     <div className="favorite">
       <h1>Your Favorites</h1>
       <div className="movies-container" ref={favoritesContainerRef}>
-        {data.length > 0 ? (
-          data.map((movie: any) => (
+        {movies.length > 0 ? (
+          movies.map((movie: any) => (
             <MovieCard key={movie.id} movie={movie} mode="favorites"  />
           ))
         ) : (
