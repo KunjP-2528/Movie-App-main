@@ -58,6 +58,7 @@ const Favorite: React.FC = ( ) => {
 
   const favoritesContainerRef = useRef<HTMLDivElement>(null);
   const { data, loading, error } = useQuery(GET_FAVORITES);
+  console.log(data)
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;

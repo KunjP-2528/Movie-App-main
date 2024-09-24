@@ -145,7 +145,7 @@
 // import React, { useState, useEffect } from 'react';
 import './Moviecard.css';
 import { useMutation } from '@apollo/client';
-import { ADD_TO_WATCHLIST, ADD_TO_FAVORITES } from '../graphql/mutation'; // Adjust the path as needed
+import { ADD_TO_WATCHLIST, ADD_TO_FAVORITES } from '../graphql/mutation'; 
 import { useSnackbar } from 'notistack';
 import { useState, useEffect } from 'react';
 
@@ -216,18 +216,18 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, mode }) => {
       const { data } = await addToFavorites({
         variables: {
           id: movie.id,
-          movie_app_id: movie.id, 
+          movie_app_id: movie.id, // Adjust according to your schema
           movie_poster_path: movie.poster_path,
           overview: movie.overview,
           title: movie.title,
           added_at: new Date().toISOString(),
         },
       });
-      console.log("Added to Favorites:", data);
-      enqueueSnackbar('Movie added to Favorites!', { variant: 'success' });
+      console.log("Added to Favorite:", data);
+      enqueueSnackbar('Movie added to Favorite!', { variant: 'success' });
     } catch (error) {
-      console.error("Error adding to favorites:", error);
-      enqueueSnackbar('Failed to add movie to Favorites.', { variant: 'error' });
+      console.error("Error adding to Favorite:", error);
+      enqueueSnackbar('Failed to add movie to Favorite.', { variant: 'error' });
     }
   };
 

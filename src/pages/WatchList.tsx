@@ -58,6 +58,7 @@ import {  GET_WATCHLIST } from '../graphql/quires';
 const Watchlist: React.FC = () => {
   const watchlistContainerRef = useRef<HTMLDivElement>(null);
   const { data, loading, error } = useQuery(GET_WATCHLIST);
+  console.log(data)
   
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>

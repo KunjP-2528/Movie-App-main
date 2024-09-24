@@ -27,6 +27,7 @@ export const ADD_TO_WATCHLIST = gql`
     }
   }
 `;
+
 export const ADD_TO_FAVORITES = gql`
   mutation AddToFavorites(
     $id: Int!, 
@@ -36,7 +37,7 @@ export const ADD_TO_FAVORITES = gql`
     $title: String!, 
     $added_at: timestamptz!
   ) {
-    insert_favorites(objects: {
+    insert_favorite(objects: {
       id: $id, 
       movie_app_id: $movie_app_id, 
       movie_poster_path: $movie_poster_path, 
