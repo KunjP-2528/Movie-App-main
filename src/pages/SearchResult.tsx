@@ -2,11 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { searchMovies, Movie } from '../api'; // Import searchMovies
 import MovieCard from '../component/MovieCard';
-interface SearchResultProps {
-  dispatch: React.Dispatch<any>;
-}
 
-const SearchResults: React.FC<SearchResultProps> = ({dispatch}) => {
+
+const SearchResults: React.FC = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [query, setQuery] = useState('');
   const location = useLocation();
@@ -34,7 +32,7 @@ const SearchResults: React.FC<SearchResultProps> = ({dispatch}) => {
       <div className="movies-container">
         {movies.length > 0 ? (
           movies.map(movie => (
-            <MovieCard key={movie.id} movie={movie} dispatch={dispatch}/>
+            <MovieCard key={movie.id} movie={movie} />
           ))
         ) : (
           <p>No movies found.</p>

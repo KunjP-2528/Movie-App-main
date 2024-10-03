@@ -142,9 +142,14 @@
 // };
 
 // export default MovieCard;
-import React, { useState, useEffect } from 'react';
+// import React, { useState, useEffect } from 'react';
 import './Moviecard.css';
+import { useMutation } from '@apollo/client';
+import { ADD_TO_WATCHLIST, ADD_TO_FAVORITES,DELETE_FROM_FAVORITES,DELETE_FROM_WATCHLIST } from '../graphql/mutation'; 
+import {GET_FAVORITES, GET_WATCHLIST} from '../graphql/quires'
 import { useSnackbar } from 'notistack';
+import { useState, useEffect } from 'react';
+import { ApolloError } from '@apollo/client';
 
 interface MovieCardProps {
   movie: {
@@ -154,14 +159,36 @@ interface MovieCardProps {
     poster_path: string;
   };
   mode?: 'favorites' | 'watchlist';
-  dispatch: React.Dispatch<any>; // Added dispatch prop
 }
 
-const MovieCard: React.FC<MovieCardProps> = ({ movie, mode, dispatch }) => {
+const MovieCard: React.FC<MovieCardProps> = ({ movie, mode }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [videoId, setVideoId] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   const { enqueueSnackbar } = useSnackbar();
+
+  // Apollo Client mutations
+  // const [addToWatchlist] = useMutation(ADD_TO_WATCHLIST);
+  // const [addToFavorites] = useMutation(ADD_TO_FAVORITES,);
+  // const [deleteFavorite] = useMutation(DELETE_FROM_FAVORITES);
+  // const [deleteWatchlist] = useMutation(DELETE_FROM_WATCHLIST);
+  const [addToWatchlist] = useMutation(ADD_TO_WATCHLIST, {
+    refetchQueries: [{ query: GET_WATCHLIST }],
+  });
+
+  const [addToFavorites] = useMutation(ADD_TO_FAVORITES, {
+    refetchQueries: [{ query: GET_FAVORITES }],
+  });
+
+  const [deleteFavorite] = useMutation(DELETE_FROM_FAVORITES, {
+    refetchQueries: [{ query: GET_FAVORITES }],
+  });
+
+  const [deleteWatchlist] = useMutation(DELETE_FROM_WATCHLIST, {
+    refetchQueries: [{ query: GET_WATCHLIST }],
+  });
+
 
   useEffect(() => {
     const fetchVideoId = async () => {
@@ -203,22 +230,77 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, mode, dispatch }) => {
     setIsModalOpen(false);
   };
 
-  const handleAddToFavorites = (e: React.MouseEvent) => {
+  const handleAddToFavorites = async (e: React.MouseEvent) => {
     e.stopPropagation();
-    dispatch({ type: 'ADD_TO_FAVORITES', movie });
-    enqueueSnackbar('Movie added to Favorite!', { variant: 'success' });
+   
+    try {
+      const { data } = await addToFavorites({
+        variables: {
+          id: movie.id,
+          movie_app_id: movie.id, 
+          movie_poster_path: movie.poster_path,
+          overview: movie.overview,
+          title: movie.title,
+          added_at: new Date().toISOString(),
+        },
+      
+      });
+      console.log("Added to Favorite:", data);
+      enqueueSnackbar('Movie added to Favorite!', { variant: 'success' });
+    } catch (error) {
+      console.error("Error adding to Favorite:", error);
+      enqueueSnackbar('Failed to add movie to Favorite.', { variant: 'error' });
+    }
   };
 
-  const handleAddToWatchlist = (e: React.MouseEvent) => {
+  const handleAddToWatchlist = async (e: React.MouseEvent) => {
     e.stopPropagation();
-    dispatch({ type: 'ADD_TO_WATCHLIST', movie });
-    enqueueSnackbar('Movie added to WatchList!', { variant: 'success' });
+    try {
+      const { data } = await addToWatchlist({
+        variables: {
+          id: movie.id,
+          movie_app_id: movie.id, 
+          movie_poster_path: movie.poster_path,
+          overview: movie.overview,
+          title: movie.title,
+          added_at: new Date().toISOString(),
+        },
+      });
+      console.log("Added to Watchlist:", data);
+      enqueueSnackbar('Movie added to Watchlist!', { variant: 'success' });
+    } catch (error) {
+      console.error("Error adding to watchlist:", error);
+      enqueueSnackbar('Failed to add movie to Watchlist.', { variant: 'error' });
+    }
+    
   };
 
-  const handleDelete = (e: React.MouseEvent) => {
+  const handleDelete = async (e: React.MouseEvent) => {
+   
+
     e.stopPropagation();
-    dispatch({ type: 'REMOVE_FROM_LIST', movieId: movie.id, mode: mode || '' });
-    enqueueSnackbar('Movie deleted successfully!', { variant: 'success' });
+
+    try {
+      if (mode === 'favorites') {
+        const { data } = await deleteFavorite({ variables: { id: movie.id } });
+        if (data && data.delete_favorite && data.delete_favorite.affected_rows > 0) {
+          enqueueSnackbar('Movie deleted from favorites!', { variant: 'success' });
+        } else {
+          enqueueSnackbar('Movie not found in favorites!', { variant: 'info' });
+        }
+      } else if (mode === 'watchlist') {
+        const { data } = await deleteWatchlist({ variables: { id: movie.id } });
+        if (data && data.delete_watchlist && data.delete_watchlist.affected_rows > 0) {
+          enqueueSnackbar('Movie deleted from watchlist!', { variant: 'success' });
+        } else {
+          enqueueSnackbar('Movie not found in watchlist!', { variant: 'info' });
+        }
+      }
+    } catch (error) {
+      const apolloError = error as ApolloError;
+      enqueueSnackbar('Error deleting movie: ' + apolloError.message, { variant: 'error' });
+    }
+   
   };
 
   return (

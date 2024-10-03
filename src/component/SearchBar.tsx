@@ -19,6 +19,7 @@ const SearchBar: React.FC = () => {
         value={query} 
         onChange={(e) => setQuery(e.target.value)} 
         placeholder="Search movies..." 
+        id='form-input'
       />
       <button className='search-button' onClick={handleSearch}>Search</button>
     </div>
