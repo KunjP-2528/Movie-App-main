@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PKFLIX – Complete Tech & Feature Guide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap');
+
+  :root {
+    --red:    #E50914;
+    --red2:   #ff4757;
+    --blue:   #3b82f6;
+    --green:  #22c55e;
+    --yellow: #f59e0b;
+    --purple: #8b5cf6;
+    --orange: #f97316;
+    --teal:   #14b8a6;
+    --text:   #1e293b;
+    --muted:  #64748b;
+    --border: #e2e8f0;
+    --bg:     #f8fafc;
+    --card:   #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 14px;
+  }
+
+  /* ── COVER PAGE ─────────────────────────────── */
+  .cover {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 50%, #16213e 100%);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center; padding: 60px 40px;
+    page-break-after: always;
+  }
+  .cover-logo { font-size: 72px; font-weight: 900; letter-spacing: -2px; color: #fff; margin-bottom: 12px; }
+  .cover-logo span { color: var(--red); }
+  .cover-subtitle { font-size: 22px; color: #94a3b8; font-weight: 300; margin-bottom: 40px; }
+  .cover-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(229,9,20,0.15); border: 1px solid rgba(229,9,20,0.4);
+    color: #fca5a5; padding: 8px 20px; border-radius: 100px;
+    font-size: 13px; font-weight: 500; margin-bottom: 60px;
+  }
+  .cover-meta { color: #475569; font-size: 13px; }
+  .cover-meta span { color: #94a3b8; }
+
+  .cover-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 16px; margin: 50px 0; max-width: 700px; width: 100%;
+  }
+  .cover-tag {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px; padding: 14px 10px;
+    color: #e2e8f0; font-size: 12px; font-weight: 500;
+  }
+  .cover-tag .icon { font-size: 24px; display: block; margin-bottom: 6px; }
+
+  /* ── LAYOUT ─────────────────────────────────── */
+  .container { max-width: 900px; margin: 0 auto; padding: 48px 40px; }
+
+  /* ── TABLE OF CONTENTS ──────────────────────── */
+  .toc {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 32px 40px; margin-bottom: 48px;
+    page-break-after: always;
+  }
+  .toc h2 { font-size: 20px; font-weight: 700; margin-bottom: 20px; color: var(--text); }
+  .toc-section { margin-bottom: 16px; }
+  .toc-section h3 { font-size: 13px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+  .toc a { display: block; color: var(--blue); text-decoration: none; font-size: 14px; padding: 2px 0; }
+  .toc a:hover { text-decoration: underline; }
+
+  /* ── SECTION HEADERS ────────────────────────── */
+  .section-header {
+    display: flex; align-items: center; gap: 14px;
+    margin: 56px 0 28px; padding-bottom: 14px;
+    border-bottom: 2px solid var(--border);
+  }
+  .section-number {
+    width: 36px; height: 36px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 800; flex-shrink: 0;
+    color: white;
+  }
+  .section-header h2 { font-size: 22px; font-weight: 800; }
+
+  /* ── CARDS ──────────────────────────────────── */
+  .card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 24px 28px; margin-bottom: 20px;
+  }
+  .card-header {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 14px;
+  }
+  .card-icon {
+    width: 42px; height: 42px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; flex-shrink: 0;
+  }
+  .card-title { font-size: 17px; font-weight: 700; }
+  .card-version { font-size: 11px; color: var(--muted); font-weight: 400; margin-top: 2px; }
+
+  .card p { color: #374151; margin-bottom: 10px; font-size: 13.5px; }
+  .card p:last-child { margin-bottom: 0; }
+
+  /* ── CODE BLOCKS ─────────────────────────────── */
+  pre {
+    background: #0f172a; color: #e2e8f0;
+    border-radius: 10px; padding: 16px 20px;
+    font-family: 'Fira Code', monospace; font-size: 12px;
+    overflow-x: auto; margin: 12px 0;
+    line-height: 1.7;
+  }
+  code {
+    font-family: 'Fira Code', monospace; font-size: 12px;
+    background: #f1f5f9; color: #0f172a;
+    padding: 2px 6px; border-radius: 4px;
+  }
+  pre code { background: none; color: inherit; padding: 0; }
+
+  .comment { color: #64748b; }
+  .keyword { color: #93c5fd; }
+  .string  { color: #86efac; }
+  .fn      { color: #fde68a; }
+  .type    { color: #f9a8d4; }
+
+  /* ── BADGES ─────────────────────────────────── */
+  .badge {
+    display: inline-block; padding: 2px 10px;
+    border-radius: 100px; font-size: 11px; font-weight: 600;
+    margin-right: 6px;
+  }
+  .badge-red    { background: #fee2e2; color: #991b1b; }
+  .badge-blue   { background: #dbeafe; color: #1d4ed8; }
+  .badge-green  { background: #dcfce7; color: #15803d; }
+  .badge-yellow { background: #fef3c7; color: #92400e; }
+  .badge-purple { background: #ede9fe; color: #6d28d9; }
+  .badge-orange { background: #ffedd5; color: #c2410c; }
+  .badge-gray   { background: #f1f5f9; color: #374151; }
+
+  /* ── INFO BOXES ─────────────────────────────── */
+  .info-box {
+    border-radius: 10px; padding: 14px 18px; margin: 14px 0; font-size: 13px;
+  }
+  .info-box.tip    { background: #eff6ff; border-left: 4px solid var(--blue); }
+  .info-box.note   { background: #fefce8; border-left: 4px solid var(--yellow); }
+  .info-box.warn   { background: #fff7ed; border-left: 4px solid var(--orange); }
+  .info-box strong { font-weight: 700; }
+
+  /* ── FLOW DIAGRAM ────────────────────────────── */
+  .flow {
+    display: flex; align-items: center; flex-wrap: wrap;
+    gap: 8px; margin: 16px 0;
+  }
+  .flow-step {
+    background: #f1f5f9; border: 1px solid var(--border);
+    border-radius: 8px; padding: 8px 14px;
+    font-size: 12px; font-weight: 600; color: var(--text);
+  }
+  .flow-arrow { color: var(--muted); font-size: 18px; }
+
+  /* ── FEATURE LIST ────────────────────────────── */
+  .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+  .feature-item {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 16px 18px;
+  }
+  .feature-item h4 { font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+  .feature-item p  { font-size: 12px; color: var(--muted); }
+
+  /* ── TABLE ───────────────────────────────────── */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0; }
+  th { background: #f8fafc; font-weight: 600; text-align: left; padding: 10px 14px; border-bottom: 2px solid var(--border); }
+  td { padding: 10px 14px; border-bottom: 1px solid var(--border); }
+  tr:last-child td { border-bottom: none; }
+
+  /* ── STEP LIST ───────────────────────────────── */
+  .steps { counter-reset: step; }
+  .step  { display: flex; gap: 16px; margin-bottom: 20px; }
+  .step-num {
+    counter-increment: step; width: 28px; height: 28px;
+    background: var(--red); color: white; border-radius: 50%;
+    font-size: 13px; font-weight: 700; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 2px;
+  }
+  .step-num::before { content: counter(step); }
+  .step-body h4 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .step-body p  { font-size: 13px; color: #374151; }
+
+  /* ── PRINT ───────────────────────────────────── */
+  @media print {
+    body { background: white; font-size: 12px; }
+    .cover { min-height: auto; padding: 80px 40px; }
+    .no-print { display: none; }
+    pre { white-space: pre-wrap; }
+    .container { padding: 24px 32px; }
+    .section-header { page-break-before: auto; }
+    .card { break-inside: avoid; }
+  }
+
+  /* ── MISC ────────────────────────────────────── */
+  ul { padding-left: 20px; }
+  li { margin-bottom: 5px; font-size: 13.5px; color: #374151; }
+  h3 { font-size: 16px; font-weight: 700; margin: 20px 0 10px; color: var(--text); }
+  hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+  .print-hint {
+    text-align: center; padding: 14px; background: #eff6ff;
+    border: 1px solid #bfdbfe; border-radius: 10px; margin-bottom: 32px;
+    font-size: 13px; color: #1d4ed8;
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- COVER PAGE                                   -->
+<!-- ════════════════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-logo">PK<span>FLIX</span></div>
+  <div class="cover-subtitle">Complete Tech Stack & Feature Guide</div>
+  <div class="cover-badge">📘 Developer Documentation · 2024</div>
+
+  <div class="cover-grid">
+    <div class="cover-tag"><span class="icon">⚡</span>Next.js 14</div>
+    <div class="cover-tag"><span class="icon">🔷</span>TypeScript</div>
+    <div class="cover-tag"><span class="icon">🎨</span>Tailwind CSS</div>
+    <div class="cover-tag"><span class="icon">🔐</span>NextAuth.js</div>
+    <div class="cover-tag"><span class="icon">🔄</span>TanStack Query</div>
+    <div class="cover-tag"><span class="icon">🗃️</span>Redux Toolkit</div>
+    <div class="cover-tag"><span class="icon">🎬</span>Framer Motion</div>
+    <div class="cover-tag"><span class="icon">🌐</span>Hasura GraphQL</div>
+  </div>
+
+  <div class="cover-meta">
+    Project: <span>PKFLIX Movie App</span> &nbsp;·&nbsp;
+    Stack: <span>Full-Stack Next.js</span> &nbsp;·&nbsp;
+    Author: <span>KunjP</span>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- MAIN CONTENT                                 -->
+<!-- ════════════════════════════════════════════ -->
+<div class="container">
+
+  <div class="print-hint no-print">
+    💡 <strong>To save as PDF:</strong> Press <kbd>Ctrl+P</kbd> → Change destination to <strong>"Save as PDF"</strong> → Save
+  </div>
+
+  <!-- TABLE OF CONTENTS -->
+  <div class="toc">
+    <h2>📋 Table of Contents</h2>
+    <div class="two-col">
+      <div>
+        <div class="toc-section">
+          <h3>Tech Stack</h3>
+          <a href="#nextjs">1. Next.js 14 (App Router)</a>
+          <a href="#typescript">2. TypeScript</a>
+          <a href="#tailwind">3. Tailwind CSS</a>
+          <a href="#framer">4. Framer Motion</a>
+          <a href="#nextauth">5. NextAuth.js v4</a>
+          <a href="#tanstack">6. TanStack Query v5</a>
+          <a href="#redux">7. Redux Toolkit</a>
+        </div>
+        <div class="toc-section">
+          <h3>Backend & APIs</h3>
+          <a href="#axios">8. Axios</a>
+          <a href="#apollo">9. Apollo Client</a>
+          <a href="#hasura">10. Hasura GraphQL</a>
+          <a href="#tmdb">11. TMDB API</a>
+          <a href="#notistack">12. Notistack</a>
+          <a href="#intersection">13. Intersection Observer</a>
+        </div>
+      </div>
+      <div>
+        <div class="toc-section">
+          <h3>App Features</h3>
+          <a href="#home">Home Page</a>
+          <a href="#search">Search (with Voice)</a>
+          <a href="#details">Movie Details Page</a>
+          <a href="#trailer">Trailer Modal</a>
+          <a href="#hover">Video Hover Card</a>
+          <a href="#dashboard">User Dashboard</a>
+          <a href="#continue">Continue Watching</a>
+          <a href="#infinite">Infinite Scroll</a>
+          <a href="#auth-flow">Authentication Flow</a>
+          <a href="#api-routes">API Routes (Backend)</a>
+        </div>
+        <div class="toc-section">
+          <h3>Architecture</h3>
+          <a href="#folder">Folder Structure</a>
+          <a href="#data-flow">Data Flow</a>
+          <a href="#env">Environment Variables</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--  SECTION 1 — TECH STACK                     -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="section-header" id="nextjs">
+    <div class="section-number" style="background:#000">1</div>
+    <h2>Next.js 14 — The Main Framework</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#000; color:#fff">⚡</div>
+      <div>
+        <div class="card-title">Next.js 14</div>
+        <div class="card-version">v14.2.15 · App Router · React Framework</div>
+      </div>
+      <div style="margin-left:auto"><span class="badge badge-blue">Framework</span><span class="badge badge-green">Core</span></div>
+    </div>
+    <p><strong>What it is:</strong> Next.js is a framework built on top of React. It adds superpowers: server-side rendering, file-based routing, API routes (your own backend), image optimization, and more — all in one package.</p>
+    <p><strong>Why we use it:</strong> Instead of React alone (which only works in the browser), Next.js can also run on the server. This means faster page loads, better SEO, and the ability to write backend code (API routes) in the same project.</p>
+
+    <h3>App Router (the new way in Next.js 14)</h3>
+    <p>Every folder inside <code>src/app/</code> becomes a URL route automatically:</p>
+    <pre><code>src/app/
+├── page.tsx          <span class="comment">→ Opens at: localhost:3000/</span>
+├── movie/[id]/
+│   └── page.tsx      <span class="comment">→ Opens at: localhost:3000/movie/123</span>
+├── search/
+│   └── page.tsx      <span class="comment">→ Opens at: localhost:3000/search</span>
+└── dashboard/
+    └── page.tsx      <span class="comment">→ Opens at: localhost:3000/dashboard</span></code></pre>
+
+    <h3>Server vs Client Components</h3>
+    <pre><code><span class="comment">// SERVER component (default) — runs on server, no hooks</span>
+<span class="keyword">export default function</span> <span class="fn">Page</span>() {
+  <span class="keyword">return</span> &lt;h1&gt;Hello&lt;/h1&gt;
+}
+
+<span class="comment">// CLIENT component — runs in browser, can use hooks</span>
+<span class="string">'use client'</span>
+<span class="keyword">import</span> { useState } <span class="keyword">from</span> <span class="string">'react'</span>
+
+<span class="keyword">export default function</span> <span class="fn">Counter</span>() {
+  <span class="keyword">const</span> [count, setCount] = useState(0)
+  <span class="keyword">return</span> &lt;button onClick={() =&gt; setCount(count + 1)}&gt;{count}&lt;/button&gt;
+}</code></pre>
+
+    <h3>API Routes (your own backend)</h3>
+    <p>Files inside <code>src/app/api/</code> become REST API endpoints — no Express needed!</p>
+    <pre><code><span class="comment">// src/app/api/favorites/route.ts  →  localhost:3000/api/favorites</span>
+<span class="keyword">export async function</span> <span class="fn">GET</span>() {
+  <span class="keyword">return</span> Response.json({ message: <span class="string">'Hello from backend!'</span> })
+}</code></pre>
+
+    <div class="info-box tip"><strong>💡 Simple rule:</strong> If a component uses <code>useState</code>, <code>useEffect</code>, or any hook → add <code>'use client'</code> at the top. Otherwise, it's a server component by default.</div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <div class="section-header" id="typescript">
+    <div class="section-number" style="background:#3178c6">2</div>
+    <h2>TypeScript — Type-Safe JavaScript</h2>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#3178c6; color:#fff">🔷</div>
+      <div><div class="card-title">TypeScript</div><div class="card-version">v5.6 · Superset of JavaScript</div></div>
+      <div style="margin-left:auto"><span class="badge badge-blue">Language</span></div>
+    </div>
+    <p><strong>What it is:</strong> TypeScript is JavaScript with types. It catches mistakes before your code runs — like using a string where a number is expected.</p>
+    <pre><code><span class="comment">// Without TypeScript (JavaScript) — no error, but crashes at runtime</span>
+<span class="keyword">function</span> <span class="fn">greet</span>(user) {
+  <span class="keyword">return</span> user.name.toUpperCase()  <span class="comment">// crashes if user is undefined</span>
+}
+
+<span class="comment">// With TypeScript — error shown immediately in editor</span>
+<span class="keyword">interface</span> <span class="type">User</span> { name: string; age: number }
+
+<span class="keyword">function</span> <span class="fn">greet</span>(user: <span class="type">User</span>) {
+  <span class="keyword">return</span> user.name.toUpperCase()  <span class="comment">// always safe!</span>
+}</code></pre>
+    <p><strong>In our project</strong> — types like <code>Movie</code>, <code>WatchlistItem</code>, <code>FavoriteItem</code> are defined in <code>src/types/index.ts</code> and used everywhere.</p>
+    <div class="info-box tip"><strong>💡</strong> TypeScript files use <code>.ts</code> (plain) or <code>.tsx</code> (with JSX/components) extension.</div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <div class="section-header" id="tailwind">
+    <div class="section-number" style="background:#06b6d4">3</div>
+    <h2>Tailwind CSS — Styling</h2>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#06b6d4; color:#fff">🎨</div>
+      <div><div class="card-title">Tailwind CSS</div><div class="card-version">v3.4 · Utility-First CSS</div></div>
+      <div style="margin-left:auto"><span class="badge badge-blue">Styling</span></div>
+    </div>
+    <p><strong>What it is:</strong> Instead of writing separate CSS files, you style directly in HTML using small class names. Each class does one thing.</p>
+    <pre><code><span class="comment">/* Old way — separate CSS file */</span>
+.button { background: red; color: white; padding: 8px 16px; border-radius: 8px; }
+
+<span class="comment">// Tailwind way — all in the className</span>
+&lt;button className=<span class="string">"bg-red-600 text-white px-4 py-2 rounded-lg"</span>&gt;Click&lt;/button&gt;</code></pre>
+
+    <h3>Classes we use most in PKFLIX</h3>
+    <table>
+      <tr><th>Class</th><th>What it does</th></tr>
+      <tr><td><code>flex, grid</code></td><td>Layout (flexbox / grid)</td></tr>
+      <tr><td><code>bg-[#141414]</code></td><td>Custom background color</td></tr>
+      <tr><td><code>text-white, text-gray-400</code></td><td>Text color</td></tr>
+      <tr><td><code>rounded-xl, rounded-2xl</code></td><td>Border radius</td></tr>
+      <tr><td><code>px-4, py-2, p-3</code></td><td>Padding (x=horizontal, y=vertical)</td></tr>
+      <tr><td><code>hover:bg-red-600</code></td><td>Style on mouse hover</td></tr>
+      <tr><td><code>md:block, hidden</code></td><td>Responsive (show on medium+ screens)</td></tr>
+      <tr><td><code>animate-pulse</code></td><td>Pulsing loading effect</td></tr>
+      <tr><td><code>transition-colors</code></td><td>Smooth color change animation</td></tr>
+    </table>
+    <p>Our custom <code>.glass</code> class (in globals.css) = glassmorphism effect using <code>backdrop-filter: blur</code>.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <div class="section-header" id="framer">
+    <div class="section-number" style="background:#ff0055">4</div>
+    <h2>Framer Motion — Animations</h2>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#ff0055; color:#fff">🎬</div>
+      <div><div class="card-title">Framer Motion</div><div class="card-version">v11 · React Animation Library</div></div>
+      <div style="margin-left:auto"><span class="badge badge-red">Animation</span></div>
+    </div>
+    <p><strong>What it is:</strong> A library that makes React components animate smoothly. You just describe the start and end state — Framer Motion handles everything in between.</p>
+    <pre><code><span class="comment">// Replace &lt;div&gt; with &lt;motion.div&gt; and add animation props</span>
+<span class="keyword">import</span> { motion } <span class="keyword">from</span> <span class="string">'framer-motion'</span>
+
+<span class="comment">// Fade in when component mounts</span>
+&lt;motion.div
+  initial={{ opacity: 0, y: 20 }}    <span class="comment">// start hidden, 20px below</span>
+  animate={{ opacity: 1, y: 0 }}     <span class="comment">// animate to visible, normal position</span>
+  transition={{ duration: 0.4 }}     <span class="comment">// takes 0.4 seconds</span>
+&gt;
+  Hello!
+&lt;/motion.div&gt;
+
+<span class="comment">// Scale on hover + click</span>
+&lt;motion.button
+  whileHover={{ scale: 1.05 }}
+  whileTap={{ scale: 0.95 }}
+&gt;
+  Click me
+&lt;/motion.button&gt;</code></pre>
+
+    <h3>AnimatePresence — animate when something disappears</h3>
+    <pre><code><span class="keyword">import</span> { AnimatePresence, motion } <span class="keyword">from</span> <span class="string">'framer-motion'</span>
+
+<span class="comment">// The exit animation plays when isVisible becomes false</span>
+&lt;AnimatePresence&gt;
+  {isVisible &amp;&amp; (
+    &lt;motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}     <span class="comment">// this plays on removal</span>
+    /&gt;
+  )}
+&lt;/AnimatePresence&gt;</code></pre>
+    <p><strong>We use it for:</strong> hero banner fade, movie card hover overlay, trailer modal zoom, video hover card spring animation, search dropdown.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <div class="section-header" id="nextauth">
+    <div class="section-number" style="background:#7c3aed">5</div>
+    <h2>NextAuth.js v4 — Authentication</h2>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#7c3aed; color:#fff">🔐</div>
+      <div><div class="card-title">NextAuth.js</div><div class="card-version">v4.24 · Full Auth Solution for Next.js</div></div>
+      <div style="margin-left:auto"><span class="badge badge-purple">Auth</span><span class="badge badge-green">Security</span></div>
+    </div>
+    <p><strong>What it is:</strong> NextAuth handles everything related to logging users in — Google login, email/password, sessions, JWT tokens — so you don't have to build it from scratch.</p>
+
+    <h3>How Authentication Works (simple version)</h3>
+    <div class="flow">
+      <div class="flow-step">User clicks "Sign In"</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">NextAuth shows login options</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">User logs in (Google/Email)</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">NextAuth creates a JWT token</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Token stored in cookie</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">User is now "logged in"</div>
+    </div>
+
+    <h3>Setup — <code>src/lib/auth.ts</code></h3>
+    <pre><code><span class="keyword">import</span> { NextAuthOptions } <span class="keyword">from</span> <span class="string">'next-auth'</span>
+<span class="keyword">import</span> GoogleProvider <span class="keyword">from</span> <span class="string">'next-auth/providers/google'</span>
+<span class="keyword">import</span> CredentialsProvider <span class="keyword">from</span> <span class="string">'next-auth/providers/credentials'</span>
+
+<span class="keyword">export const</span> authOptions: <span class="type">NextAuthOptions</span> = {
+  providers: [
+    GoogleProvider({                            <span class="comment">// Google login</span>
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET
+    }),
+    CredentialsProvider({                       <span class="comment">// Email + password login</span>
+      credentials: {
+        email: { type: <span class="string">'email'</span> },
+        password: { type: <span class="string">'password'</span> }
+      },
+      async authorize(credentials) {
+        <span class="comment">// Check credentials — return user object if valid, null if not</span>
+        <span class="keyword">if</span> (credentials.email &amp;&amp; credentials.password.length >= 6) {
+          <span class="keyword">return</span> { id: credentials.email, email: credentials.email }
+        }
+        <span class="keyword">return null</span>
+      }
+    })
+  ],
+  session: { strategy: <span class="string">'jwt'</span> },    <span class="comment">// store session as JWT token</span>
+  pages: { signIn: <span class="string">'/login'</span> }         <span class="comment">// custom login page</span>
+}</code></pre>
+
+    <h3>Using Auth in Client Components</h3>
+    <pre><code><span class="string">'use client'</span>
+<span class="keyword">import</span> { useSession, signIn, signOut } <span class="keyword">from</span> <span class="string">'next-auth/react'</span>
+
+<span class="keyword">function</span> <span class="fn">MyComponent</span>() {
+  <span class="keyword">const</span> { data: session, status } = <span class="fn">useSession</span>()
+
+  <span class="keyword">if</span> (status === <span class="string">'loading'</span>) <span class="keyword">return</span> &lt;p&gt;Loading...&lt;/p&gt;
+
+  <span class="keyword">if</span> (!session) {
+    <span class="keyword">return</span> &lt;button onClick={() =&gt; signIn()}&gt;Sign In&lt;/button&gt;
+  }
+
+  <span class="keyword">return</span> (
+    &lt;div&gt;
+      &lt;p&gt;Hello {session.user.name}!&lt;/p&gt;
+      &lt;button onClick={() =&gt; signOut()}&gt;Sign Out&lt;/button&gt;
+    &lt;/div&gt;
+  )
+}</code></pre>
+
+    <h3>Using Auth in Server Components / API Routes</h3>
+    <pre><code><span class="keyword">import</span> { getServerSession } <span class="keyword">from</span> <span class="string">'next-auth'</span>
+<span class="keyword">import</span> { authOptions } <span class="keyword">from</span> <span class="string">'@/lib/auth'</span>
+
+<span class="comment">// In API route — check if user is logged in</span>
+<span class="keyword">export async function</span> <span class="fn">GET</span>() {
+  <span class="keyword">const</span> session = <span class="keyword">await</span> <span class="fn">getServerSession</span>(authOptions)
+
+  <span class="keyword">if</span> (!session) {
+    <span class="keyword">return</span> Response.json({ error: <span class="string">'Not logged in'</span> }, { status: 401 })
+  }
+
+  <span class="comment">// User is logged in — session.user.id, session.user.email etc</span>
+  <span class="keyword">return</span> Response.json({ user: session.user })
+}</code></pre>
+
+    <h3>Protecting Routes with Middleware</h3>
+    <pre><code><span class="comment">// src/middleware.ts — runs on EVERY request before the page loads</span>
+<span class="keyword">import</span> { withAuth } <span class="keyword">from</span> <span class="string">'next-auth/middleware'</span>
+
+<span class="keyword">export default</span> <span class="fn">withAuth</span>({
+  callbacks: {
+    authorized: ({ token }) =&gt; !!token  <span class="comment">// true = user has a token = logged in</span>
+  }
+})
+
+<span class="keyword">export const</span> config = {
+  matcher: [<span class="string">'/dashboard/:path*'</span>]   <span class="comment">// only protect /dashboard</span>
+}</code></pre>
+    <div class="info-box tip"><strong>💡 How it works:</strong> If someone tries to visit <code>/dashboard</code> without being logged in, the middleware checks the JWT token. No token → automatically redirects to <code>/login</code>. The user never sees the protected page.</div>
+
+    <h3>Environment Variables Needed</h3>
+    <pre><code>NEXTAUTH_URL=http://localhost:3000           <span class="comment"># your app URL</span>
+NEXTAUTH_SECRET=some-random-long-string      <span class="comment"># used to sign JWT tokens</span>
+GOOGLE_CLIENT_ID=from-google-console        <span class="comment"># from console.cloud.google.com</span>
+GOOGLE_CLIENT_SECRET=from-google-console</code></pre>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <div class="section-header" id="tanstack">
+    <div class="section-number" style="background:#ef4444">6</div>
+    <h2>TanStack Query v5 — Data Fetching</h2>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#ef4444; color:#fff">🔄</div>
+      <div><div class="card-title">TanStack Query (React Query)</div><div class="card-version">v5.59 · Server State Management</div></div>
+      <div style="margin-left:auto"><span class="badge badge-red">Data Fetching</span><span class="badge badge-green">Caching</span></div>
+    </div>
+    <p><strong>What it is:</strong> A library that handles fetching, caching, and updating data from APIs. It solves the most common problem: "How do I show loading, handle errors, and cache data so I don't re-fetch every time?"</p>
+
+    <h3>useQuery — Fetch Data</h3>
+    <pre><code><span class="keyword">import</span> { useQuery } <span class="keyword">from</span> <span class="string">'@tanstack/react-query'</span>
+
+<span class="keyword">function</span> <span class="fn">MovieList</span>() {
+  <span class="keyword">const</span> { data, isLoading, isError } = <span class="fn">useQuery</span>({
+    queryKey: [<span class="string">'popular-movies'</span>],        <span class="comment">// unique cache key</span>
+    queryFn: () =&gt; <span class="fn">fetch</span>(<span class="string">'/api/movies'</span>).then(r =&gt; r.json()),
+    staleTime: 1000 * 60 * 5,             <span class="comment">// cache for 5 minutes</span>
+  })
+
+  <span class="keyword">if</span> (isLoading) <span class="keyword">return</span> &lt;Skeleton /&gt;
+  <span class="keyword">if</span> (isError)   <span class="keyword">return</span> &lt;p&gt;Error!&lt;/p&gt;
+  <span class="keyword">return</span> &lt;MovieGrid movies={data} /&gt;
+}</code></pre>
+
+    <h3>useMutation — Send Data (POST / DELETE)</h3>
+    <pre><code><span class="keyword">import</span> { useMutation, useQueryClient } <span class="keyword">from</span> <span class="string">'@tanstack/react-query'</span>
+
+<span class="keyword">function</span> <span class="fn">AddFavoriteButton</span>({ movie }) {
+  <span class="keyword">const</span> qc = <span class="fn">useQueryClient</span>()
+
+  <span class="keyword">const</span> { mutate } = <span class="fn">useMutation</span>({
+    mutationFn: () =&gt; <span class="fn">fetch</span>(<span class="string">'/api/favorites'</span>, {
+      method: <span class="string">'POST'</span>,
+      body: JSON.<span class="fn">stringify</span>(movie)
+    }).then(r =&gt; r.json()),
+
+    onSuccess: () =&gt; {
+      qc.<span class="fn">invalidateQueries</span>({ queryKey: [<span class="string">'favorites'</span>] }) <span class="comment">// refresh favorites list</span>
+      alert(<span class="string">'Added!'</span>)
+    }
+  })
+
+  <span class="keyword">return</span> &lt;button onClick={mutate}&gt;Add to Favorites&lt;/button&gt;
+}</code></pre>
+
+    <h3>useInfiniteQuery — Infinite Scroll</h3>
+    <pre><code><span class="keyword">const</span> { data, fetchNextPage, hasNextPage } = <span class="fn">useInfiniteQuery</span>({
+  queryKey: [<span class="string">'popular'</span>, <span class="string">'infinite'</span>],
+  queryFn: ({ pageParam }) =&gt; tmdbApi.<span class="fn">getPopular</span>(pageParam),
+  initialPageParam: 1,
+  getNextPageParam: (lastPage) =&gt;
+    lastPage.page &lt; lastPage.total_pages ? lastPage.page + 1 : undefined
+})</code></pre>
+
+    <div class="info-box tip"><strong>💡 Key benefit:</strong> If you visit the same page twice, TanStack Query serves the cached data instantly instead of fetching again. Cache lasts 5 minutes in our app.</div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <div class="section-header" id="redux">
+    <div class="section-number" style="background:#764abc">7</div>
+    <h2>Redux Toolkit — Global State</h2>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#764abc; color:#fff">🗃️</div>
+      <div><div class="card-title">Redux Toolkit</div><div class="card-version">v2.3 · Global State Management</div></div>
+      <div style="margin-left:auto"><span class="badge badge-purple">State</span></div>
+    </div>
+    <p><strong>What it is:</strong> A way to store data that multiple components need to share — like user ratings — in one central place (the "store").</p>
+    <pre><code><span class="comment">// Define a slice (a piece of the store)</span>
+<span class="keyword">const</span> ratingsSlice = <span class="fn">createSlice</span>({
+  name: <span class="string">'ratings'</span>,
+  initialState: { ratings: {} },
+  reducers: {
+    <span class="fn">rateMovie</span>(state, action) {
+      state.ratings[action.payload.movieId] = action.payload.rating
+    }
+  }
+})
+
+<span class="comment">// In a component — read and update state</span>
+<span class="keyword">const</span> ratings = <span class="fn">useAppSelector</span>(state =&gt; state.ratings.ratings)
+<span class="keyword">const</span> dispatch = <span class="fn">useAppDispatch</span>()
+dispatch(<span class="fn">rateMovie</span>({ movieId: 123, rating: 8 }))</code></pre>
+    <p><strong>In PKFLIX:</strong> Redux stores the user's movie ratings. Ratings are also saved to <code>localStorage</code> so they survive a page refresh.</p>
+    <div class="info-box note"><strong>📝 Note:</strong> TanStack Query handles <em>server data</em> (from APIs). Redux handles <em>client-only state</em> (ratings, UI preferences). Use the right tool for each job.</div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <div class="section-header" id="axios">
+    <div class="section-number" style="background:#5a29e4">8</div>
+    <h2>Axios — HTTP Requests</h2>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#5a29e4; color:#fff">📡</div>
+      <div><div class="card-title">Axios</div><div class="card-version">v1.7 · HTTP Client</div></div>
+      <div style="margin-left:auto"><span class="badge badge-purple">HTTP</span></div>
+    </div>
+    <p><strong>What it is:</strong> A library that makes API calls easier than the built-in <code>fetch</code>. It automatically handles JSON, base URLs, and request parameters.</p>
+    <pre><code><span class="comment">// src/api/tmdb.ts — we create one axios instance for all TMDB calls</span>
+<span class="keyword">const</span> tmdb = axios.<span class="fn">create</span>({
+  baseURL: <span class="string">'https://api.themoviedb.org/3'</span>,   <span class="comment">// base URL for all requests</span>
+  params: { api_key: process.env.TMDB_API_KEY }  <span class="comment">// auto-added to every call</span>
+})
+
+<span class="comment">// Now every call automatically includes the API key</span>
+tmdb.<span class="fn">get</span>(<span class="string">'/movie/popular'</span>)          <span class="comment">// → GET /movie/popular?api_key=...</span>
+tmdb.<span class="fn">get</span>(<span class="string">'/search/movie'</span>, { params: { query: <span class="string">'Batman'</span> } })</code></pre>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <div class="section-header" id="apollo">
+    <div class="section-number" style="background:#311c87">9</div>
+    <h2>Apollo Client — GraphQL</h2>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#311c87; color:#fff">🪐</div>
+      <div><div class="card-title">Apollo Client</div><div class="card-version">v3.11 · GraphQL Client</div></div>
+      <div style="margin-left:auto"><span class="badge badge-purple">GraphQL</span></div>
+    </div>
+    <p><strong>What it is:</strong> A library to communicate with GraphQL APIs. GraphQL lets you ask for exactly the data you need — no more, no less — in a single request.</p>
+    <pre><code><span class="comment">// REST API — you get ALL movie data even if you only need title</span>
+fetch(<span class="string">'/api/movies/123'</span>)  <span class="comment">// returns: id, title, overview, rating, cast, ...</span>
+
+<span class="comment">// GraphQL — you ask for exactly what you need</span>
+<span class="keyword">const</span> QUERY = gql<span class="string">`
+  query {
+    favorite {
+      id
+      title          # only ask for these fields
+      poster_path: movie_poster_path
+    }
+  }
+`</span>
+
+<span class="comment">// In our project (Hasura backend)</span>
+<span class="keyword">const</span> { data } = <span class="fn">useQuery</span>(GET_FAVORITES)  <span class="comment">// fetches from Hasura</span></code></pre>
+    <p>Apollo Client is still in the project for reference but the app now uses API routes (Next.js backend) instead — keeping the admin secret server-side only.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <div class="section-header" id="hasura">
+    <div class="section-number" style="background:#1eb4d4">10</div>
+    <h2>Hasura — GraphQL Database Backend</h2>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#1eb4d4; color:#fff">🌐</div>
+      <div><div class="card-title">Hasura GraphQL Engine</div><div class="card-version">Cloud · PostgreSQL Backend</div></div>
+      <div style="margin-left:auto"><span class="badge badge-blue">Backend</span><span class="badge badge-green">Database</span></div>
+    </div>
+    <p><strong>What it is:</strong> Hasura connects to a PostgreSQL database and automatically generates a GraphQL API for it — no backend code needed. You get instant CRUD operations (Create, Read, Update, Delete).</p>
+
+    <h3>Our Database Tables</h3>
+    <table>
+      <tr><th>Table</th><th>Columns</th><th>What it stores</th></tr>
+      <tr><td><code>favorite</code></td><td>id, movie_app_id, title, overview, movie_poster_path, added_at</td><td>User's favorite movies</td></tr>
+      <tr><td><code>watchlist</code></td><td>id, movie_app_id, title, overview, movie_poster_path, added_at</td><td>Movies to watch later</td></tr>
+    </table>
+
+    <h3>How we call Hasura from API Routes</h3>
+    <pre><code><span class="comment">// In src/app/api/favorites/route.ts (SERVER SIDE ONLY)</span>
+<span class="keyword">await</span> <span class="fn">fetch</span>(process.env.HASURA_URL, {
+  method: <span class="string">'POST'</span>,
+  headers: {
+    <span class="string">'x-hasura-admin-secret'</span>: process.env.HASURA_ADMIN_SECRET  <span class="comment">// secret stays on server!</span>
+  },
+  body: JSON.<span class="fn">stringify</span>({ query: <span class="string">'query { favorite { id title } }'</span> })
+})</code></pre>
+    <div class="info-box warn"><strong>⚠️ Security:</strong> The <code>HASURA_ADMIN_SECRET</code> must NEVER go to the browser. That's why we put all Hasura calls inside API routes (server-side). The <code>NEXT_PUBLIC_</code> prefix exposes variables to the browser — never put secrets there.</div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <div class="section-header" id="tmdb">
+    <div class="section-number" style="background:#01b4e4">11</div>
+    <h2>TMDB API — Movie Data</h2>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#01b4e4; color:#fff">🎥</div>
+      <div><div class="card-title">The Movie Database (TMDB)</div><div class="card-version">API v3 · Movie Data Source</div></div>
+      <div style="margin-left:auto"><span class="badge badge-blue">External API</span></div>
+    </div>
+    <p><strong>What it is:</strong> A free API that provides all movie data — posters, backdrops, descriptions, trailers, cast, genres, ratings, and more. It's the backbone of the entire app.</p>
+
+    <h3>Key Endpoints We Use</h3>
+    <table>
+      <tr><th>Endpoint</th><th>What it returns</th><th>Used in</th></tr>
+      <tr><td><code>/trending/movie/day</code></td><td>Today's trending movies</td><td>Hero banner, home page</td></tr>
+      <tr><td><code>/movie/popular</code></td><td>Most popular movies</td><td>Home slider</td></tr>
+      <tr><td><code>/movie/top_rated</code></td><td>Highest rated movies</td><td>Home slider</td></tr>
+      <tr><td><code>/movie/{id}</code></td><td>Full movie details</td><td>Movie detail page</td></tr>
+      <tr><td><code>/movie/{id}/videos</code></td><td>Trailers, teasers</td><td>Trailer modal, hover card</td></tr>
+      <tr><td><code>/movie/{id}/similar</code></td><td>Similar movies</td><td>Detail page</td></tr>
+      <tr><td><code>/movie/{id}/recommendations</code></td><td>Recommended movies</td><td>Detail page</td></tr>
+      <tr><td><code>/search/movie?query=X</code></td><td>Search results</td><td>Search bar, search page</td></tr>
+      <tr><td><code>/discover/movie?with_genres=X</code></td><td>Movies by genre</td><td>Smart recommendations</td></tr>
+    </table>
+
+    <h3>Image URLs</h3>
+    <pre><code><span class="comment">// TMDB gives you just a path, you add the base URL</span>
+<span class="keyword">const</span> poster = movie.poster_path  <span class="comment">// "/abc123.jpg"</span>
+<span class="keyword">const</span> fullUrl = <span class="string">`https://image.tmdb.org/t/p/w500</span>${poster}<span class="string">`</span>
+
+<span class="comment">// Sizes available: w92, w185, w342, w500, w780, original</span></code></pre>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <div class="section-header" id="notistack">
+    <div class="section-number" style="background:#059669">12</div>
+    <h2>Notistack — Toast Notifications</h2>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#059669; color:#fff">🔔</div>
+      <div><div class="card-title">Notistack</div><div class="card-version">v3 · Snackbar / Toast Library</div></div>
+      <div style="margin-left:auto"><span class="badge badge-green">UI</span></div>
+    </div>
+    <p>Shows small popup messages ("snackbars") at the bottom-right of the screen. We use it to tell users what happened — "Added to Favorites!", "Removed", etc.</p>
+    <pre><code><span class="keyword">import</span> { useSnackbar } <span class="keyword">from</span> <span class="string">'notistack'</span>
+
+<span class="keyword">const</span> { enqueueSnackbar } = <span class="fn">useSnackbar</span>()
+
+<span class="comment">// Show a success message</span>
+<span class="fn">enqueueSnackbar</span>(<span class="string">'Added to Favorites!'</span>, { variant: <span class="string">'success'</span> })
+
+<span class="comment">// Variants: 'success' (green), 'error' (red), 'warning', 'info'</span></code></pre>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <div class="section-header" id="intersection">
+    <div class="section-number" style="background:#d97706">13</div>
+    <h2>React Intersection Observer — Infinite Scroll</h2>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#d97706; color:#fff">👁️</div>
+      <div><div class="card-title">react-intersection-observer</div><div class="card-version">v10 · Visibility Detection</div></div>
+      <div style="margin-left:auto"><span class="badge badge-yellow">Scroll</span></div>
+    </div>
+    <p>Tells you when an element becomes visible on screen. We attach it to a hidden div at the bottom of the movie grid — when that div comes into view, we load the next page of movies.</p>
+    <pre><code><span class="keyword">import</span> { useInView } <span class="keyword">from</span> <span class="string">'react-intersection-observer'</span>
+
+<span class="keyword">const</span> { ref, inView } = <span class="fn">useInView</span>({ threshold: 0.1 })
+
+<span class="comment">// When the invisible div scrolls into view...</span>
+<span class="fn">useEffect</span>(() =&gt; {
+  <span class="keyword">if</span> (inView &amp;&amp; hasNextPage) <span class="fn">fetchNextPage</span>()  <span class="comment">// load next page!</span>
+}, [inView])
+
+<span class="comment">// Put this at the bottom of the list</span>
+&lt;div ref={ref} /&gt;  <span class="comment">// invisible sentinel div</span></code></pre>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--  SECTION 2 — APP FEATURES                   -->
+  <!-- ═══════════════════════════════════════════ -->
+
+  <div class="section-header" style="margin-top: 64px">
+    <div class="section-number" style="background: linear-gradient(135deg,#E50914,#ff6b6b); font-size: 18px">🚀</div>
+    <h2>Complete App Functionality — How Everything Works</h2>
+  </div>
+
+  <!-- HOME PAGE -->
+  <div class="card" id="home">
+    <div class="card-header">
+      <div class="card-icon" style="background:#E50914; color:#fff">🏠</div>
+      <div><div class="card-title">Home Page</div><div class="card-version">src/app/page.tsx</div></div>
+    </div>
+    <p>The home page is split into two main components:</p>
+    <div class="feature-grid">
+      <div class="feature-item">
+        <h4>🎬 HeroSection</h4>
+        <p>Auto-rotating backdrop of trending movies. Changes every 7 seconds. Shows title, overview, rating. "More Info" and "My List" buttons.</p>
+      </div>
+      <div class="feature-item">
+        <h4>📽️ HomeMovieSections</h4>
+        <p>Four horizontal sliders: Trending, Popular, Top Rated, Coming Soon. Each fetches from TMDB via TanStack Query with 5-minute caching.</p>
+      </div>
+    </div>
+    <div class="flow">
+      <div class="flow-step">Page loads</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Skeleton loaders appear</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">4 TMDB API calls fire in parallel</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Data fills in smoothly</div>
+    </div>
+  </div>
+
+  <!-- SEARCH -->
+  <div class="card" id="search">
+    <div class="card-header">
+      <div class="card-icon" style="background:#3b82f6; color:#fff">🔍</div>
+      <div><div class="card-title">Search (Real-time + Voice)</div><div class="card-version">src/components/search/</div></div>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-item">
+        <h4>⌨️ Real-time Search</h4>
+        <p>Uses a <strong>debounce hook</strong> (400ms delay). So if you type quickly "Bat" it waits until you pause before calling the API. Prevents 10 API calls per second.</p>
+      </div>
+      <div class="feature-item">
+        <h4>🎤 Voice Search</h4>
+        <p>Uses the browser's built-in <strong>Web Speech API</strong>. Click the 🎤 mic button, speak a movie name, it fills the search box automatically. Works on Chrome and Edge.</p>
+      </div>
+    </div>
+    <h3>How the Suggestions Dropdown Works</h3>
+    <div class="steps">
+      <div class="step"><div class="step-num"></div><div class="step-body"><h4>User types 2+ characters</h4><p>Debounce waits 400ms after last keypress</p></div></div>
+      <div class="step"><div class="step-num"></div><div class="step-body"><h4>TanStack Query fires <code>/search/movie?query=X</code></h4><p>Results are cached by query string</p></div></div>
+      <div class="step"><div class="step-num"></div><div class="step-body"><h4>Dropdown shows top 6 results</h4><p>Each shows poster thumbnail, title, year, rating</p></div></div>
+      <div class="step"><div class="step-num"></div><div class="step-body"><h4>Click suggestion → navigate to <code>/movie/ID</code></h4><p>Or press Enter / "See all results" → navigate to <code>/search?query=X</code></p></div></div>
+    </div>
+  </div>
+
+  <!-- MOVIE DETAILS -->
+  <div class="card" id="details">
+    <div class="card-header">
+      <div class="card-icon" style="background:#8b5cf6; color:#fff">🎞️</div>
+      <div><div class="card-title">Movie Details Page</div><div class="card-version">src/app/movie/[id]/page.tsx</div></div>
+    </div>
+    <p>When you click a movie, Next.js routes to <code>/movie/123</code> where 123 is the TMDB movie ID. Three parallel API calls fire at once:</p>
+    <ul>
+      <li><code>/movie/{id}?append_to_response=videos,credits</code> — full details + trailer + cast in ONE call</li>
+      <li><code>/movie/{id}/similar</code> — similar movies slider</li>
+      <li><code>/movie/{id}/recommendations</code> — TMDB recommendations</li>
+      <li><code>/discover/movie?with_genres={genreId}</code> — smart genre-based picks</li>
+    </ul>
+    <p>The page also calls <code>useContinueWatching()</code> which automatically POSTs this movie to <code>/api/continue-watching</code> — so it appears in your dashboard.</p>
+    <p>The <strong>Add to Favorites</strong> and <strong>+ Watchlist</strong> buttons call our API routes (<code>/api/favorites</code>, <code>/api/watchlist</code>) which need you to be signed in.</p>
+  </div>
+
+  <!-- TRAILER MODAL -->
+  <div class="card" id="trailer">
+    <div class="card-header">
+      <div class="card-icon" style="background:#E50914; color:#fff">▶️</div>
+      <div><div class="card-title">Trailer Modal</div><div class="card-version">src/components/movie/TrailerModal.tsx</div></div>
+    </div>
+    <p>Clicking "Watch Trailer" on the detail page opens a fullscreen modal with the YouTube trailer playing automatically (muted by default).</p>
+    <div class="feature-grid">
+      <div class="feature-item"><h4>🎯 Auto-play</h4><p><code>?autoplay=1</code> in the YouTube embed URL. Video starts the moment the modal opens.</p></div>
+      <div class="feature-item"><h4>⏸ Auto-pause on close</h4><p>The <code>&lt;iframe&gt;</code> is only rendered while the modal is open. Closing the modal unmounts it → video stops instantly.</p></div>
+      <div class="feature-item"><h4>⌨️ ESC key to close</h4><p><code>window.addEventListener('keydown')</code> listens for Escape key and calls <code>onClose()</code>.</p></div>
+      <div class="feature-item"><h4>📱 Mobile full-screen</h4><p>16:9 aspect ratio (<code>padding-top: 56.25%</code>) fills any screen size perfectly.</p></div>
+    </div>
+    <p><strong>No trailer?</strong> The button still shows but grayed out. Inside the modal, a "🎬 No trailer available" fallback message is shown instead of a blank screen.</p>
+  </div>
+
+  <!-- VIDEO HOVER CARD -->
+  <div class="card" id="hover">
+    <div class="card-header">
+      <div class="card-icon" style="background:#0f0f0f; color:#fff">🖱️</div>
+      <div><div class="card-title">Netflix-Style Video Hover Card</div><div class="card-version">src/components/movie/VideoHoverCard.tsx</div></div>
+    </div>
+    <p>This is the signature Netflix feature. Hover over any movie card for 700ms and a bigger preview card pops up with the trailer playing silently.</p>
+    <div class="steps">
+      <div class="step"><div class="step-num"></div><div class="step-body"><h4>Mouse enters movie card</h4><p>Immediately prefetches movie details (so clicking feels instant). Starts a 700ms timer.</p></div></div>
+      <div class="step"><div class="step-num"></div><div class="step-body"><h4>700ms passes without moving away</h4><p>Records the card's position on screen using <code>getBoundingClientRect()</code>.</p></div></div>
+      <div class="step"><div class="step-num"></div><div class="step-body"><h4>VideoHoverCard renders via Portal</h4><p><code>createPortal(…, document.body)</code> — appended directly to <code>&lt;body&gt;</code>, escaping all overflow clipping. Position calculated to stay inside the viewport.</p></div></div>
+      <div class="step"><div class="step-num"></div><div class="step-body"><h4>Trailer fetches and plays muted</h4><p>Backdrop image shown first. YouTube iframe loads with <code>?autoplay=1&mute=1</code>. After 1.2 seconds, backdrop fades out to reveal video.</p></div></div>
+      <div class="step"><div class="step-num"></div><div class="step-body"><h4>User can click 🔇 to unmute</h4><p>Changes the <code>isMuted</code> state. The iframe's <code>key</code> prop changes → React remounts the iframe with <code>mute=0</code> → video restarts with sound.</p></div></div>
+    </div>
+    <div class="info-box tip"><strong>💡 Shared close timer:</strong> Moving the mouse from the card to the hover card doesn't close it. A 250ms delay timer starts when you leave the card — entering the hover card cancels that timer. Elegant!</div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div class="card" id="dashboard">
+    <div class="card-header">
+      <div class="card-icon" style="background:#f59e0b; color:#fff">📊</div>
+      <div><div class="card-title">User Dashboard</div><div class="card-version">src/app/dashboard/page.tsx</div></div>
+    </div>
+    <p>The dashboard is a <strong>protected route</strong> — the middleware automatically redirects you to <code>/login</code> if you're not signed in.</p>
+    <p>Once logged in, it shows:</p>
+    <ul>
+      <li>Your name, email, and avatar (from Google or first letter)</li>
+      <li>Stats: Favorites count, Watchlist count, Continue Watching count</li>
+      <li>Continue Watching — movies you've visited, with a progress bar</li>
+      <li>My Favorites — horizontal scrollable list with Remove buttons</li>
+      <li>My Watchlist — horizontal scrollable list with Remove buttons</li>
+    </ul>
+    <p>All data is fetched from <strong>our own API routes</strong> (<code>/api/favorites</code>, <code>/api/watchlist</code>, <code>/api/continue-watching</code>) using TanStack Query. The API routes talk to Hasura on the server — admin secret never reaches the browser.</p>
+  </div>
+
+  <!-- CONTINUE WATCHING -->
+  <div class="card" id="continue">
+    <div class="card-header">
+      <div class="card-icon" style="background:#14b8a6; color:#fff">⏭️</div>
+      <div><div class="card-title">Continue Watching</div><div class="card-version">src/hooks/useContinueWatching.ts</div></div>
+    </div>
+    <p>Every time you open a movie's detail page, the app automatically records it in "Continue Watching" using a custom hook:</p>
+    <pre><code><span class="comment">// This hook is called in MovieDetailsPage.tsx</span>
+<span class="fn">useContinueWatching</span>(movieId, movie.title, movie.poster_path)
+
+<span class="comment">// Inside the hook — fires once when the page loads</span>
+<span class="fn">useEffect</span>(() =&gt; {
+  <span class="keyword">if</span> (!session) <span class="keyword">return</span>   <span class="comment">// only if logged in</span>
+  <span class="fn">fetch</span>(<span class="string">'/api/continue-watching'</span>, {
+    method: <span class="string">'POST'</span>,
+    body: JSON.<span class="fn">stringify</span>({ movieId, title, poster_path, progress: 5 })
+  })
+}, [movieId])</code></pre>
+    <p>The API stores up to 20 movies. In the dashboard you see a horizontal list with a red progress bar. Hovering shows a ✕ button to remove it.</p>
+    <div class="info-box note"><strong>📝 Note:</strong> Currently "progress" is set to 5% (just visited). A full implementation would use a video player that reports actual watch percentage.</div>
+  </div>
+
+  <!-- INFINITE SCROLL -->
+  <div class="card" id="infinite">
+    <div class="card-header">
+      <div class="card-icon" style="background:#6366f1; color:#fff">♾️</div>
+      <div><div class="card-title">Infinite Scroll</div><div class="card-version">src/components/movie/InfiniteMovieGrid.tsx</div></div>
+    </div>
+    <p>Instead of pagination buttons, movies load automatically as you scroll down. This uses <code>useInfiniteQuery</code> from TanStack Query + <code>useInView</code>.</p>
+    <div class="flow">
+      <div class="flow-step">Page 1 loaded (20 movies)</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">User scrolls near bottom</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Invisible div enters viewport</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">fetchNextPage() called</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Page 2 appended to grid</div>
+    </div>
+    <p>Stops at page 10 to prevent overwhelming the API. Shows "You've reached the end" when done.</p>
+  </div>
+
+  <!-- AUTH FLOW -->
+  <div class="card" id="auth-flow">
+    <div class="card-header">
+      <div class="card-icon" style="background:#7c3aed; color:#fff">🔒</div>
+      <div><div class="card-title">Complete Authentication Flow</div></div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-num"></div><div class="step-body"><h4>User visits <code>/dashboard</code></h4><p>Next.js middleware checks for a JWT token in the cookie.</p></div></div>
+      <div class="step"><div class="step-num"></div><div class="step-body"><h4>No token found</h4><p>Middleware redirects automatically to <code>/login</code> before the page even renders.</p></div></div>
+      <div class="step"><div class="step-num"></div><div class="step-body"><h4>User signs in (Google or demo credentials)</h4><p>NextAuth verifies the identity. For Google: OAuth flow. For credentials: the <code>authorize</code> function runs.</p></div></div>
+      <div class="step"><div class="step-num"></div><div class="step-body"><h4>NextAuth creates a JWT token</h4><p>Stores it as an HTTP-only cookie. Contains user ID and email. Expires by default in 30 days.</p></div></div>
+      <div class="step"><div class="step-num"></div><div class="step-body"><h4>User redirected to <code>/dashboard</code></h4><p>Middleware sees the token → allows access. Dashboard fetches personalized data.</p></div></div>
+      <div class="step"><div class="step-num"></div><div class="step-body"><h4>Every API route checks the session</h4><p><code>getServerSession(authOptions)</code> → if no valid session, returns 401 Unauthorized.</p></div></div>
+    </div>
+  </div>
+
+  <!-- API ROUTES -->
+  <div class="card" id="api-routes">
+    <div class="card-header">
+      <div class="card-icon" style="background:#0f172a; color:#fff">🖥️</div>
+      <div><div class="card-title">API Routes — Your Backend</div><div class="card-version">src/app/api/</div></div>
+    </div>
+    <p>These files are your <strong>own Node.js backend</strong>, running inside Next.js. They handle auth checking and database operations:</p>
+    <table>
+      <tr><th>Route</th><th>Methods</th><th>What it does</th></tr>
+      <tr><td><code>/api/auth/[…nextauth]</code></td><td>GET, POST</td><td>NextAuth handler — handles all sign in/out logic</td></tr>
+      <tr><td><code>/api/favorites</code></td><td>GET, POST, DELETE</td><td>Read, add, remove favorite movies from Hasura</td></tr>
+      <tr><td><code>/api/watchlist</code></td><td>GET, POST, DELETE</td><td>Read, add, remove watchlist movies from Hasura</td></tr>
+      <tr><td><code>/api/ratings</code></td><td>GET, POST, DELETE</td><td>Store per-user movie ratings (in-memory store)</td></tr>
+      <tr><td><code>/api/continue-watching</code></td><td>GET, POST, DELETE</td><td>Track recently viewed movies with progress</td></tr>
+    </table>
+    <div class="info-box tip"><strong>💡 Why API routes instead of calling Hasura directly from the browser?</strong><br>Security. The Hasura admin secret must stay on the server. API routes run on the server, so they can safely access <code>process.env.HASURA_ADMIN_SECRET</code>. Browser code cannot.</div>
+  </div>
+
+  <!-- FOLDER STRUCTURE -->
+  <div class="card" id="folder">
+    <div class="card-header">
+      <div class="card-icon" style="background:#374151; color:#fff">📁</div>
+      <div><div class="card-title">Folder Structure</div></div>
+    </div>
+    <pre><code>src/
+├── app/                    <span class="comment">← Next.js App Router pages + API</span>
+│   ├── api/               <span class="comment">← Your backend (Node.js API routes)</span>
+│   │   ├── auth/          <span class="comment">← NextAuth handler</span>
+│   │   ├── favorites/     <span class="comment">← Favorites CRUD</span>
+│   │   ├── watchlist/     <span class="comment">← Watchlist CRUD</span>
+│   │   ├── ratings/       <span class="comment">← Ratings storage</span>
+│   │   └── continue-watching/
+│   ├── movie/[id]/        <span class="comment">← Dynamic movie page</span>
+│   ├── search/            <span class="comment">← Search results</span>
+│   ├── dashboard/         <span class="comment">← Protected user dashboard</span>
+│   ├── login/             <span class="comment">← Sign-in page</span>
+│   ├── layout.tsx         <span class="comment">← Wraps all pages (Header, Providers)</span>
+│   └── globals.css        <span class="comment">← Global styles, CSS variables</span>
+│
+├── components/            <span class="comment">← Reusable UI components</span>
+│   ├── auth/              <span class="comment">← LoginForm, AuthButton</span>
+│   ├── layout/            <span class="comment">← Header, Hero</span>
+│   ├── movie/             <span class="comment">← MovieCard, MovieSlider, TrailerModal, VideoHoverCard</span>
+│   ├── search/            <span class="comment">← SearchBar, VoiceSearch</span>
+│   ├── dashboard/         <span class="comment">← Dashboard component</span>
+│   └── ui/                <span class="comment">← SkeletonCard, SkeletonSlider, ErrorUI</span>
+│
+├── api/                   <span class="comment">← External API clients</span>
+│   ├── tmdb.ts            <span class="comment">← All TMDB API functions (via Axios)</span>
+│   └── hasura.ts          <span class="comment">← Apollo Client config (legacy)</span>
+│
+├── hooks/                 <span class="comment">← Custom React hooks</span>
+│   ├── useDebounce.ts     <span class="comment">← Delays search input</span>
+│   ├── useTheme.ts        <span class="comment">← Dark/light toggle</span>
+│   ├── useContinueWatching.ts
+│   └── useVoiceSearch.ts
+│
+├── store/                 <span class="comment">← Redux Toolkit</span>
+│   ├── index.ts           <span class="comment">← Store configuration</span>
+│   └── slices/            <span class="comment">← favoritesSlice, watchlistSlice, ratingsSlice</span>
+│
+├── types/                 <span class="comment">← TypeScript interfaces</span>
+│   └── index.ts           <span class="comment">← Movie, WatchlistItem, FavoriteItem, etc.</span>
+│
+├── utils/                 <span class="comment">← Helper functions</span>
+│   └── index.ts           <span class="comment">← formatDate, formatRuntime, shimmerBlurUrl</span>
+│
+├── lib/                   <span class="comment">← Server-side configuration</span>
+│   └── auth.ts            <span class="comment">← NextAuth options (providers, callbacks)</span>
+│
+└── middleware.ts           <span class="comment">← Protects /dashboard route</span></code></pre>
+  </div>
+
+  <!-- DATA FLOW -->
+  <div class="card" id="data-flow">
+    <div class="card-header">
+      <div class="card-icon" style="background:#1e40af; color:#fff">🔀</div>
+      <div><div class="card-title">Complete Data Flow</div></div>
+    </div>
+    <pre><code><span class="comment">═══════════════════════════════════════════════════
+  MOVIE DATA (read-only, no auth needed)
+═══════════════════════════════════════════════════</span>
+Browser
+  → TanStack Query (useQuery)
+    → Axios (tmdb.ts)
+      → TMDB API (https://api.themoviedb.org/3)
+        ← Returns: movies, posters, trailers, cast
+
+<span class="comment">═══════════════════════════════════════════════════
+  USER DATA (favorites, watchlist — auth required)
+═══════════════════════════════════════════════════</span>
+Browser
+  → TanStack Query (useMutation / useQuery)
+    → fetch('/api/favorites')   ← YOUR backend
+      → API Route (Next.js server)
+        → checks session with getServerSession()
+          → if valid: queries Hasura GraphQL
+            → Hasura ↔ PostgreSQL database
+              ← Returns: user's favorites
+
+<span class="comment">═══════════════════════════════════════════════════
+  AUTH FLOW
+═══════════════════════════════════════════════════</span>
+Browser
+  → signIn() from next-auth/react
+    → /api/auth/[...nextauth]  ← NextAuth handler
+      → validates credentials (Google or email/password)
+        → creates JWT token
+          → stores in HTTP-only cookie
+            ← Browser now has a session</code></pre>
+  </div>
+
+  <!-- ENV VARS -->
+  <div class="card" id="env">
+    <div class="card-header">
+      <div class="card-icon" style="background:#374151; color:#fff">🔑</div>
+      <div><div class="card-title">Environment Variables (.env.local)</div></div>
+    </div>
+    <table>
+      <tr><th>Variable</th><th>Used by</th><th>Notes</th></tr>
+      <tr><td><code>NEXT_PUBLIC_TMDB_API_KEY</code></td><td>Browser (Axios)</td><td>Safe to expose — TMDB read-only key</td></tr>
+      <tr><td><code>NEXT_PUBLIC_TMDB_BASE_URL</code></td><td>Browser (Axios)</td><td>https://api.themoviedb.org/3</td></tr>
+      <tr><td><code>NEXT_PUBLIC_HASURA_URL</code></td><td>Browser (legacy Apollo)</td><td>Your Hasura endpoint</td></tr>
+      <tr><td><code>NEXT_PUBLIC_HASURA_ADMIN_SECRET</code></td><td>Browser (legacy)</td><td>⚠️ Ideally remove this</td></tr>
+      <tr><td><code>HASURA_URL</code></td><td>Server only (API routes)</td><td>Same URL, server-side</td></tr>
+      <tr><td><code>HASURA_ADMIN_SECRET</code></td><td>Server only (API routes)</td><td>✅ Never exposed to browser</td></tr>
+      <tr><td><code>NEXTAUTH_URL</code></td><td>NextAuth</td><td>http://localhost:3000 in dev</td></tr>
+      <tr><td><code>NEXTAUTH_SECRET</code></td><td>NextAuth</td><td>Random string for JWT signing</td></tr>
+      <tr><td><code>GOOGLE_CLIENT_ID</code></td><td>NextAuth Google provider</td><td>From Google Cloud Console</td></tr>
+      <tr><td><code>GOOGLE_CLIENT_SECRET</code></td><td>NextAuth Google provider</td><td>From Google Cloud Console</td></tr>
+    </table>
+    <div class="info-box tip"><strong>💡 NEXT_PUBLIC_ prefix</strong> = the variable is bundled into the browser JavaScript and is visible to anyone. Never put passwords or admin secrets with this prefix.</div>
+  </div>
+
+  <hr />
+  <div style="text-align: center; padding: 40px 0; color: var(--muted); font-size: 13px;">
+    <p style="font-size: 28px; margin-bottom: 8px;">PK<span style="color: var(--red);">FLIX</span></p>
+    <p>Full-Stack Next.js Movie App · Built by KunjP · 2024</p>
+    <p style="margin-top: 8px; font-size: 11px;">
+      Next.js 14 · TypeScript · Tailwind CSS · Framer Motion · NextAuth.js · TanStack Query · Redux Toolkit · Hasura · TMDB API
+    </p>
+  </div>
+
+</div>
+</body>
+</html>

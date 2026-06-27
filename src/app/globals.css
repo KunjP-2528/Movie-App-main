@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Theme tokens ─────────────────────────────── */
+:root {
+  --bg: #141414;
+  --bg-card: #1f1f1f;
+  --text: #ffffff;
+  --text-muted: #9ca3af;
+  --border: rgba(255, 255, 255, 0.08);
+}
+
+html.light {
+  --bg: #f3f4f6;
+  --bg-card: #ffffff;
+  --text: #111827;
+  --text-muted: #6b7280;
+  --border: rgba(0, 0, 0, 0.08);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* ── Scrollbar ──────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: #1f1f1f; }
+::-webkit-scrollbar-thumb { background: #E50914; border-radius: 3px; }
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ── Glassmorphism ──────────────────────────────── */
+.glass {
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+}
+
+html.light .glass {
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* ── Shimmer skeleton ───────────────────────────── */
+.shimmer {
+  background: linear-gradient(90deg, #1f1f1f 25%, #2d2d2d 50%, #1f1f1f 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Gradient text ──────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(135deg, #E50914, #ff6b6b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Landing: cinematic poster backdrop ─────────── */
+@keyframes scroll-up {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-50%); }
+}
+@keyframes scroll-down {
+  from { transform: translateY(-50%); }
+  to   { transform: translateY(0); }
+}
+.animate-scroll-up   { animation: scroll-up 60s linear infinite; }
+.animate-scroll-down { animation: scroll-down 60s linear infinite; }
+
+/* ── Landing: trending marquee ──────────────────── */
+@keyframes marquee-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.animate-marquee { animation: marquee-left 50s linear infinite; }
+
+/* Respect reduced-motion preference (a11y) */
+@media (prefers-reduced-motion: reduce) {
+  .animate-scroll-up,
+  .animate-scroll-down,
+  .animate-marquee { animation: none; }
+}
